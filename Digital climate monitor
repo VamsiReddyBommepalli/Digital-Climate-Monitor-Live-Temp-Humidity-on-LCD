@@ -1,0 +1,27 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(12,11,7,6,5,4);
+#include <DHT.h>
+#define DHTPIN 10
+#define DHTTYPE DHT22
+DHT dht(DHTPIN,DHTTYPE);
+void setup()
+{
+  lcd.begin(16,2);
+  dht.begin();
+}
+void loop()
+{
+  float TEMP= dht.readTemperature();
+  float HUMID = dht.readHumidity();
+  lcd.setCursor(0,0);
+  lcd.print(" *Temperature of surroundings in(*C):");
+  lcd.print(TEMP);
+  lcd.setCursor(0,1);
+  lcd.print(" *Humidity of Environment in(%) : ");
+  lcd.print(HUMID);
+  for(int i =1;i<16;i++)
+  {
+    lcd.scrollDisplayLeft();
+    delay(200);
+  }
+}
